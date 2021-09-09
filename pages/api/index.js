@@ -5,15 +5,29 @@ dbConnect()
 
 export default async (req, res) => {
   const { method } = req;
-  const skip = req.query.skip || 0;
-  // const name = req.params.name
-  // const name = req.params.name
+  const name = req.query.search ? {
+    $or: [
+      {
+        name: {
+          '$regex': req.query.search,
+          '$options': 'i'
+        }
+      },
+      {
+        brand: {
+          '$regex': req.query.search,
+          '$options': 'i'
+        }
+      }
+    ]
+  } : {}
+  const categories = req.query.categories ? { categories: req.query.categories } : {}
   // const name = req.params.name
 
   switch (method) {
     case 'GET':
       try {
-        const products = await Product.find().lean().skip(skip);
+        const products = await Product.find({ ...name, ...categories }).lean();
         res.status(200).json({ success: true, data: products })
       } catch (error) {
         res.status(400).json({ success: false, message: error.message });

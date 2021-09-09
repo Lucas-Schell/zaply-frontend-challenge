@@ -1,27 +1,20 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Product from '../components/ProductCard';
+import SearchBar from '../components/SearchBar';
+import { useState } from 'react';
 
-export default function Home(props) {
-  const { data } = props;
-  console.log(data)
+function Home(props) {
+  const { data, categories } = props;
+  const [products, setProducts] = useState(data);
 
-  // product().then(async data => console.log((await data.json()).data))
-  // let array = []
-  // for (let i = 0; i < 50; i++) {
-  //   array.push(
-  //     <div className={styles.productContainer}>
-  //       <Product
-  //         id="70709795"
-  //         image="https://savegnago.vteximg.com.br/arquivos/ids/293238_2"
-  //         name="Borracha Escolar Faber Castell Super Soft"
-  //         categories="Bazar E Utilidades"
-  //         price="5.39"
-  //         brand="Faber Castell"
-  //       />
-  //     </div>
-  //   )
-  // }
+  const fetchData = (qSearch, qCateg) => {
+    const querySearch = qSearch ? `search=${qSearch}` : '';
+    const queryCategories = qCateg ? `categories=${qCateg}` : '';
+    fetch(`/api?${querySearch}&${queryCategories}`).then(data => data.json()).then(data => {
+      setProducts(data.data)
+    });
+  }
 
   return (
     <div className={styles.container}>
@@ -32,8 +25,11 @@ export default function Home(props) {
       </Head>
 
       <main className={styles.main}>
+        <div>
+          <SearchBar onSearchHandler={fetchData} categories={categories}/>
+        </div>
         <div className={styles.grid}>
-          {data.map(product => {
+          {products.map(product => {
             return (
               <div key={product.productId} className={styles.productContainer}>
                 <Product
@@ -67,11 +63,18 @@ export default function Home(props) {
 }
 
 export async function getStaticProps() {
-
-  const data = await fetch('http://localhost:3000/api');
+  let data = await fetch('http://localhost:3000/api');
+  data = (await data.json()).data
+  const categories = []
+  data.forEach(item => {
+    if (!categories.includes(item.categories)) {
+      categories.push(item.categories)
+    }
+  })
 
   return {
-    props: { ...(await data.json()) },
-    revalidate: 1
+    props: { data, categories }
   };
 }
+
+export default Home

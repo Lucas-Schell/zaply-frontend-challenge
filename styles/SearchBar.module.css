@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+}

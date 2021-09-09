@@ -5,6 +5,8 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    min-height: 300px;
 }
 
 .noMargin {
@@ -21,6 +23,7 @@
 
 .category {
     font-size: 0.8rem;
+    text-align: end;
 }
 
 .price {
@@ -29,6 +32,11 @@
 
 .imageContainer {
     align-self: center;
+}
+
+.test2 {
+    display: flex;
+    flex-direction: column;
 }
 
 .test {

@@ -7,22 +7,29 @@ const Product = (props) => {
 
   return (
     <div className={classes.container}>
-      <div className={classes.imageContainer}>
-        <ProductImage
-          loader={({ src, width }) => `${src}?w=${width}`}
-          layout={"fixed"}
-          src={image}
-          alt={name}
-          height={150}
-          width={150}
-          fallbackSrc={'/imgNotFound.svg'}
-        />
+      <div className={classes.test2}>
+        <div className={classes.imageContainer}>
+          <ProductImage
+            loader={({ src, width }) => `${src}?w=${width}`}
+            layout={'fixed'}
+            src={image}
+            alt={name}
+            height={150}
+            width={150}
+            fallbackSrc={'/imgNotFound.svg'}
+          />
+        </div>
+        <h4 className={`${classes.title} ${classes.noMargin}`}>{name}</h4>
+        <p className={`${classes.brand} ${classes.noMargin}`}>{brand}</p>
       </div>
-      <h4 className={`${classes.title} ${classes.noMargin}`}>{name}</h4>
-      <p className={`${classes.brand} ${classes.noMargin}`}>{brand}</p>
-      <div className={classes.test}>
-        <h4 className={`${classes.price} ${classes.noMargin}`}>{price}</h4>
-        <p className={`${classes.category} ${classes.noMargin}`}>{categories}</p>
+      <div>
+        <div className={classes.test}>
+          <h4 className={`${classes.price} ${classes.noMargin}`}>{new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          }).format(price)}</h4>
+          <p className={`${classes.category} ${classes.noMargin}`}>{categories}</p>
+        </div>
       </div>
     </div>
   );

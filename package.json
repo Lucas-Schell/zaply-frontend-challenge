@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "load-db": "node scripts/populateDb.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "csv-parse": "^4.16.3",
