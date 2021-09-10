@@ -1,12 +1,13 @@
 import React from 'react';
 import classes from '../../styles/Product.module.css'
 import ProductImage from './ProductImage';
+import Modal from '../Modal';
 
 const Product = (props) => {
-  const { id, image, name, categories, price, brand } = props;
+  const { productId, image, name, categories, price, brand, onClick } = props;
 
-  const onClickHandler = (event) => {
-    console.log(id)
+  const onClickHandler = () => {
+    onClick({ productId, image, name, categories, price, brand })
   }
 
   return (

@@ -23,7 +23,6 @@ export default async (req, res) => {
   } : {}
   const categories = req.query.categories ? { categories: req.query.categories } : {}
   const sort = req.query.sort ? { [req.query.sort]: req.query.order } : {}
-  console.log(sort)
 
   switch (method) {
     case 'GET':

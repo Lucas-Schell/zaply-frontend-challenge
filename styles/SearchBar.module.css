@@ -3,6 +3,11 @@
     justify-content: center;
 }
 
+.searchBar {
+    display: flex;
+    width: 40%;
+}
+
 .filters {
     display: flex;
     justify-content: center;

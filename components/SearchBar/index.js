@@ -42,10 +42,12 @@ const SearchBar = (props) => {
   return (
     <>
       <div className={classes.search}>
-        <Input value={searchValue} onChange={onChangeHandler} onKeyPress={keyPressHandler}/>
-        <Button onClick={onSubmitHandler}>
-          Pesquisar
-        </Button>
+        <div className={classes.searchBar}>
+          <Input value={searchValue} onChange={onChangeHandler} onKeyPress={keyPressHandler} placeHolder={'Buscar'}/>
+          <Button onClick={onSubmitHandler}>
+            Pesquisar
+          </Button>
+        </div>
       </div>
       <div className={classes.filters}>
         <select className={classes.select} value={categoryValue} onChange={onDropdownChangeHandler}>

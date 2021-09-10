@@ -16,3 +16,11 @@
 .button:hover {
     background-color: #007399;
 }
+
+.grey {
+    background-color: #a8a8a8;
+}
+
+.grey:hover {
+    background-color: #999999;
+}
