@@ -149,9 +149,9 @@ export async function getStaticProps() {
 
   const db = client.db();
 
-  const meetupsCollection = db.collection('products');
+  const productsCollection = db.collection('products');
 
-  const data = await meetupsCollection.find().toArray();
+  const data = await productsCollection.find().toArray();
 
   await client.close();
 
