@@ -3,6 +3,5 @@ module.exports = {
     domains: ['https://savegnago.vteximg.com.br/'],
   },
   env: {
-    MONGO_URI: ''
   }
 }
