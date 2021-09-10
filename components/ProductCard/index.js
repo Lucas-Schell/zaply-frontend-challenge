@@ -5,9 +5,13 @@ import ProductImage from './ProductImage';
 const Product = (props) => {
   const { id, image, name, categories, price, brand } = props;
 
+  const onClickHandler = (event) => {
+    console.log(id)
+  }
+
   return (
-    <div className={classes.container}>
-      <div className={classes.test2}>
+    <div className={classes.container} onClick={onClickHandler}>
+      <div className={classes.top}>
         <div className={classes.imageContainer}>
           <ProductImage
             loader={({ src, width }) => `${src}?w=${width}`}
@@ -23,7 +27,7 @@ const Product = (props) => {
         <p className={`${classes.brand} ${classes.noMargin}`}>{brand}</p>
       </div>
       <div>
-        <div className={classes.test}>
+        <div className={classes.bottom}>
           <h4 className={`${classes.price} ${classes.noMargin}`}>{new Intl.NumberFormat('pt-BR', {
             style: 'currency',
             currency: 'BRL'

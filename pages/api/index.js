@@ -22,12 +22,13 @@ export default async (req, res) => {
     ]
   } : {}
   const categories = req.query.categories ? { categories: req.query.categories } : {}
-  // const name = req.params.name
+  const sort = req.query.sort ? { [req.query.sort]: req.query.order } : {}
+  console.log(sort)
 
   switch (method) {
     case 'GET':
       try {
-        const products = await Product.find({ ...name, ...categories }).lean();
+        const products = await Product.find({ ...name, ...categories }).sort(sort).lean();
         res.status(200).json({ success: true, data: products })
       } catch (error) {
         res.status(400).json({ success: false, message: error.message });

@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 const connection = {};
 
 async function dbConnect() {
-  if (connection.isConnected) {
+  if (connection.isConnected){
+    console.log('on')
     return;
   }
 

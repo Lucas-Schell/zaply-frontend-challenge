@@ -8,10 +8,12 @@ function Home(props) {
   const { data, categories } = props;
   const [products, setProducts] = useState(data);
 
-  const fetchData = (qSearch, qCateg) => {
+  const fetchData = (qSearch, qCateg, qSort, qOrder) => {
     const querySearch = qSearch ? `search=${qSearch}` : '';
     const queryCategories = qCateg ? `categories=${qCateg}` : '';
-    fetch(`/api?${querySearch}&${queryCategories}`).then(data => data.json()).then(data => {
+    const querySort = qSort ? `sort=${qSort}` : '';
+    const queryOrder = qOrder ? `order=${qOrder}` : '';
+    fetch(`/api?${querySearch}&${queryCategories}&${querySort}&${queryOrder}`).then(data => data.json()).then(data => {
       setProducts(data.data)
     });
   }
@@ -33,7 +35,7 @@ function Home(props) {
             return (
               <div key={product.productId} className={styles.productContainer}>
                 <Product
-                  id={product.id}
+                  id={product.productId}
                   image={product.image}
                   name={product.name}
                   categories={product.categories}
@@ -45,19 +47,6 @@ function Home(props) {
           })}
         </div>
       </main>
-
-      {/*<footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16}/>
-          </span>
-        </a>
-      </footer>*/}
     </div>
   )
 }

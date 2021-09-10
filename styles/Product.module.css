@@ -2,11 +2,18 @@
     background: #FFFFFF;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
+    border: 2px solid white;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     min-height: 300px;
+    transition-duration: 0.4s;
+}
+
+.container:hover {
+    border: 2px solid black;
+    cursor: pointer;
 }
 
 .noMargin {
@@ -34,12 +41,12 @@
     align-self: center;
 }
 
-.test2 {
+.top {
     display: flex;
     flex-direction: column;
 }
 
-.test {
+.bottom {
     display: flex;
     justify-content:space-between;
     align-items: center;
