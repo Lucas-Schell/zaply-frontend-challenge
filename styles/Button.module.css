@@ -24,3 +24,11 @@
 .grey:hover {
     background-color: #999999;
 }
+
+.red {
+    background-color: #de2f2f;
+}
+
+.red:hover {
+    background-color: #ba2727;
+}

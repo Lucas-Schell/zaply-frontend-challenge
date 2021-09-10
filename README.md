@@ -22,7 +22,6 @@ npm run dev
 3. Abra [http://localhost:3000](http://localhost:3000) no navegador para acessar o site.
 
 ## Tecnologias
-***
 - Next.js - framework de react, permite criação fácil de uma api
 - MongoDB - banco fácil de ser utilizado e configurado, principalmente com o Atlas
 - Vercel - utilizado para hospedar a aplicação por funcionar muito bem com Next.js e ser fácil de se utilizar

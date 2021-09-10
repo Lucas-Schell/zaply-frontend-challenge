@@ -9,16 +9,19 @@ import classes from '../../styles/Modal.module.css'
 
 export default function TransitionsModal(props) {
   const {
-    productId,
+    productId: productIdP,
     image: imageP,
     name: nameP,
     categories: categoriesP,
     price: priceP,
     brand: brandP,
     onSubmit,
+    onDelete,
+    onCreate,
+    isCreate,
     isOpen,
     closeModal,
-    resultEdit: resultEditP
+    resultRequest
   } = props;
 
   const [image, setImage] = useState(imageP || '');
@@ -26,23 +29,36 @@ export default function TransitionsModal(props) {
   const [categories, setCategories] = useState(categoriesP || '');
   const [price, setPrice] = useState(priceP || '');
   const [brand, setBrand] = useState(brandP || '');
+  const [productId, setProductId] = useState(productIdP || '');
   const [open, setOpen] = useState(!isOpen);
   const [resultEdit, setResultEdit] = useState('');
+
+  useEffect(() => {
+    if (isCreate) {
+      setImage('');
+      setName('');
+      setCategories('');
+      setPrice('');
+      setBrand('');
+      setProductId('');
+    }
+  }, [isCreate]);
 
   useEffect(() => {
     setOpen((prevState => !prevState));
   }, [isOpen]);
 
   useEffect(() => {
-    setResultEdit(resultEditP);
-  }, [resultEditP]);
+    setResultEdit(resultRequest);
+  }, [resultRequest]);
 
   const sets = {
     image: setImage,
     name: setName,
     categories: setCategories,
     price: setPrice,
-    brand: setBrand
+    brand: setBrand,
+    productId: setProductId
   }
 
   const onChange = (event) => {
@@ -53,8 +69,16 @@ export default function TransitionsModal(props) {
     closeModal()
   };
 
+  const handleDelete = () => {
+    onDelete(productIdP)
+  };
+
+  const handleCreate = () => {
+    onCreate({ image, name, categories, price, brand, productId })
+  };
+
   const handleSubmit = () => {
-    onSubmit({ productId, image, name, categories, price, brand });
+    onSubmit({ productId: productIdP, image, name, categories, price, brand });
   };
 
   return (
@@ -71,7 +95,14 @@ export default function TransitionsModal(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2>Editar item</h2>
+            <h2>{isCreate ? 'Adicionar produto' : 'Editar produto'}</h2>
+            {isCreate && (
+              <>
+                <label className={classes.label}>Id </label>
+                <Input value={productId} name={'productId'} placeHolder={'Id'} onChange={onChange}/>
+              </>
+            )}
+
             <label className={classes.label}>Nome </label>
             <Input value={name} name={'name'} placeHolder={'Nome'} onChange={onChange}/>
 
@@ -88,14 +119,22 @@ export default function TransitionsModal(props) {
             <Input value={image} name={'image'} placeHolder={'Link da Imagem'} onChange={onChange}/>
 
             {resultEdit && <p>{resultEdit}</p>}
-            <div className={classes.buttonContainer}>
+            {!isCreate && <div className={classes.buttonContainer}>
               <Button type="button" onClick={handleClose} color={'grey'}>
                 Fechar
+              </Button>
+              <Button type="button" onClick={handleDelete} color={'red'}>
+                Excluir
               </Button>
               <Button type="button" onClick={handleSubmit}>
                 Salvar
               </Button>
-            </div>
+            </div>}
+            {isCreate && (
+              <Button type="button" onClick={handleCreate}>
+                Criar
+              </Button>
+            )}
           </div>
         </Fade>
       </Modal>

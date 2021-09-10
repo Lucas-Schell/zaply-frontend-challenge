@@ -16,6 +16,10 @@
   margin: 0.5rem
 }
 
+.buttonContainer {
+  padding: 0 20%;
+}
+
 .grid {
   display: flex;
   align-items: center;
