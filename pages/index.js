@@ -4,6 +4,7 @@ import Product from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import { useState } from 'react';
 import Modal from '../components/Modal';
+import { MongoClient } from 'mongodb';
 
 function Home(props) {
   const { data, categories } = props;
@@ -69,7 +70,7 @@ function Home(props) {
           <SearchBar onSearchHandler={fetchData} categories={categories}/>
         </div>
         <div className={styles.grid}>
-          {products.map(product => {
+          {products?.map(product => {
             return (
               <div key={product.productId} className={styles.productContainer}>
                 <Product
@@ -91,8 +92,16 @@ function Home(props) {
 }
 
 export async function getStaticProps() {
-  let data = await fetch('http://localhost:3000/api');
-  data = (await data.json()).data
+  const client = await MongoClient.connect(process.env.MONGO_URI)
+
+  const db = client.db();
+
+  const meetupsCollection = db.collection('products');
+
+  const data = await meetupsCollection.find().toArray();
+
+  await client.close();
+
   const categories = []
   data.forEach(item => {
     if (!categories.includes(item.categories)) {
@@ -101,7 +110,17 @@ export async function getStaticProps() {
   })
 
   return {
-    props: { data, categories },
+    props: {
+      data: data.map((product) => ({
+        productId: product.productId,
+        image: product.image,
+        name: product.name,
+        categories: product.categories,
+        price: product.price,
+        brand: product.brand
+      })),
+      categories
+    },
     revalidate: 10
   };
 }
