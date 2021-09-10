@@ -31,6 +31,7 @@ function Home(props) {
   }
 
   const closeEdit = () => {
+    setResultRequest('')
     setIsCreate(false)
     setIsOpen(false)
   }

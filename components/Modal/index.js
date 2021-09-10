@@ -21,7 +21,7 @@ export default function TransitionsModal(props) {
     isCreate,
     isOpen,
     closeModal,
-    resultRequest
+    resultRequest: resultRequestP
   } = props;
 
   const [image, setImage] = useState(imageP || '');
@@ -31,7 +31,7 @@ export default function TransitionsModal(props) {
   const [brand, setBrand] = useState(brandP || '');
   const [productId, setProductId] = useState(productIdP || '');
   const [open, setOpen] = useState(!isOpen);
-  const [resultEdit, setResultEdit] = useState('');
+  const [resultRequest, setResultRequest] = useState('');
 
   useEffect(() => {
     if (isCreate) {
@@ -49,8 +49,8 @@ export default function TransitionsModal(props) {
   }, [isOpen]);
 
   useEffect(() => {
-    setResultEdit(resultRequest);
-  }, [resultRequest]);
+    setResultRequest(resultRequestP);
+  }, [resultRequestP]);
 
   const sets = {
     image: setImage,
@@ -118,7 +118,7 @@ export default function TransitionsModal(props) {
             <label className={classes.label}>Link da Imagem </label>
             <Input value={image} name={'image'} placeHolder={'Link da Imagem'} onChange={onChange}/>
 
-            {resultEdit && <p>{resultEdit}</p>}
+            {resultRequest && <p>{resultRequest}</p>}
             {!isCreate && <div className={classes.buttonContainer}>
               <Button type="button" onClick={handleClose} color={'grey'}>
                 Fechar
